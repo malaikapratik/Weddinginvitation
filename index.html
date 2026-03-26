@@ -156,7 +156,7 @@
 </head>
 <body>
 <audio id="inviteMusic" preload="auto" playsinline>
-    <source src="song1.mp3" type="audio/mpeg">
+    <source src="lucky.mp3" type="audio/mpeg">
 </audio>
     <div class="stage">
         <div class="envelope-full" id="envelope" onclick="openInvite()" ontouchstart="openInvite()">
@@ -167,10 +167,10 @@
                 <div class="scroll-content">
                     <div class="details"><p><img src="flowers.png" style="width: 50%; transform:rotate(180deg);"></p>
 <div class="cardf" >
-			<p style="color:#643f00;">“The lord has done great things for us and we are filled with joy”<br>psalm 126:3</p>
-			<h6 style="text-align: center; color: #737373; font-family: Garamond, serif; font-weight:normal; font-size:10px; font-style: italic;">We,</h6>
+			<p style="color:#643f00; font-size:14px;">“The lord has done great things for us and we are filled with joy”<br>psalm 126:3</p>
+			<h6 style="text-align: center; color: #737373; font-family: Garamond, serif; font-weight:normal; font-size:12px; font-style: italic;">We,</h6>
                         <p><img src="card face.png" width="97%";></p>
-			<h6 style="text-align: center; font-family: Garamond, serif; color: #737373; font-weight:normal; font-size:10px; font-style: italic;">with full hearts, joyfully invite you to share our joy as we unite in marriage</h6></div><br><br>
+			<h6 style="text-align: center; font-family: Garamond, serif; color: #737373; font-weight:normal; padding:5px; font-size:12px; font-style: italic;">with full hearts, joyfully invite you to share our joy as we unite in marriage</h6></div><br><br>
 
 			<div class="nups" style="width:100%; background-color:#643f00; margin: 0;
   padding-top: 10px; padding-bottom: 10px;">		<p><img src="flowers2.png" style="width: 50%; transform:rotate(180deg)"></p><br>
@@ -208,7 +208,7 @@ function openInvite() {
         
         // 1. "Unlock" and play the audio
         // We call .play() immediately inside the click/touchstart handler
-        audio.currentTime = 17;
+		audio.currentTime =48;
         audio.play().catch(error => {
             console.log("Mobile playback blocked. Trying alternate 'unlock'...");
             
@@ -227,7 +227,7 @@ function openInvite() {
 
         function startPetals() {
     // Define your wedding color palette here
-    const colors = [ '#d8a691','#ffd699'
+    const colors = ['#d8a691','#ffd699'
         /*'#ffd699', // Pure White
         '#cf3073', // Soft Rose
         '#ff914d', // Ivory/Champagne
