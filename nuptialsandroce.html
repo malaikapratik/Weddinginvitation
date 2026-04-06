@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Our Wedding Invitation</title>
+    <style>
+        :root {
+            --envelope-color: #fcfbf7;
+            --flap-color: #f5f3ed;
+            --accent: #b48b58;
+            --transition-speed: 2.2s; 
+            --easing: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body, html { 
+            margin: 0; padding: 0; 
+            height: 100%; width: 100%; 
+            background-color: #fffcf6; 
+	    font-family: Garamond, serif;
+            overflow: hidden; 
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .stage { 
+            width: 100vw; 
+            height: 100vh;
+            perspective: 1500px; 
+            position: relative;
+            background: #e0e0e0;
+            background-image: url('envelopetop.jpg'); 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .envelope-full {
+            position: relative; 
+            width: 100%; 
+            height: 100%;
+            background-color: #fffcf6;
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            display: flex; justify-content: center; align-items: center;
+            z-index: 10; 
+            transform-style: preserve-3d;
+            transition: all 1s var(--easing);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .envelope-full.open {
+            width: 100%;
+            height: 100%;
+            box-shadow: none;
+        }
+
+        .wedding-button {
+            background-color:#b48b58;
+            color:#fffcf6;
+            padding: 12px 28px;
+            text-decoration: none;
+            font-family: 'Times New Roman', serif;
+            border: 1px solid #d4af37;
+            border-radius: 5px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+
+        .wedding-button:hover {
+            background-color: #b48b58;
+            color:#5d5d5d;
+        }
+
+        .flap {
+            position: absolute; 
+            top: 0; 
+            width: 100%; 
+            height: 50%; 
+            background-color: var(--flap-color);
+            background-size: cover;
+            background-position: center;
+            clip-path: polygon(0% 0%, 100% 0%, 120% 30%, 50% 100%, -40% 8%);
+            transform-origin: top; 
+            transition: transform var(--transition-speed) var(--easing);
+            z-index: 15;
+            filter: drop-shadow(0 8px 10px rgba(0,0,0,0.15));
+        }
+
+        .emblem {
+            position: absolute; 
+            top: calc(50% - 75px); 
+            width: 150px; 
+            height: 150px;
+            background-image: url('mp.png'); 
+            background-repeat: no-repeat;
+            background-position: center; 
+            background-size: contain;
+            z-index: 20; 
+            transition: all 0.8s var(--easing); 
+            transform: translateZ(35px); 
+            cursor: pointer;
+        }
+
+        .invite-card {
+            width: 100%; height: 100%; 
+            background: #fffcf6;
+            opacity: 0; 
+            position: absolute; top: 0; left: 0; 
+            z-index: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+
+            transition: opacity 1s ease 0.8s;
+        }
+
+        .scroll-content {
+            padding: 40px 0px 100px;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .details { text-align: center; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+        .details h1 { color: var(--accent); font-size: 36px; margin: 15px 0; }
+        .details p { font-size: 13px; letter-spacing: 2px; color: #666; text-transform: uppercase; }
+
+        .rsvp-section {
+            width: 100%; max-width: 3200px;
+            padding: 10px; border: 1px solid #f0eee9;
+            background:#643f00; margin-top: 20px;
+        }
+
+        .open .flap { transform: rotateX(155deg); z-index: 5; }
+        .open .emblem { opacity: 0; transform: translateY(-40px) scale(0.5); pointer-events: none; }
+        .open .invite-card { opacity: 1; z-index: 25; }
+
+        /* --- NEW WHITE PETAL STYLES --- */
+        .petal { 
+            position: fixed; 
+            top: -50px; 
+            z-index: 99; 
+            pointer-events: none; 
+            /* Creates a delicate petal shape */
+            border-radius: 150% 0 150% 0;
+            box-shadow: 0 20px 5px rgba(0,0,0,0.05);
+            opacity: 0.9;
+        }
+
+        @keyframes fall { 
+            0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; } 
+            10% { opacity: 1; } 
+            50% { transform: translateY(50vh) rotate(180deg) translateX(50px); }
+            100% { transform: translateY(110vh) rotate(360deg) translateX(-20px); opacity: 0; } 
+        }
+    </style>
+</head>
+<body>
+<audio id="inviteMusic" preload="auto" playsinline>
+    <source src="lucky.mp3" type="audio/mpeg">
+</audio>
+    <div class="stage">
+        <div class="envelope-full" id="envelope" onclick="openInvite()" ontouchstart="openInvite()">
+            <div class="flap"></div>
+            <div class="emblem"></div>
+            
+            <div class="invite-card" id="card">
+                <div class="scroll-content">
+                    <div class="details"><p><img src="flowers.png" style="width: 50%; transform:rotate(180deg);"></p>
+<div class="cardf" >
+			<p style="color:#643f00; font-size:14px;">“The lord has done great things for us and we are filled with joy”<br>psalm 126:3</p>
+			<h6 style="text-align: center; color: #737373; font-family: Garamond, serif; font-weight:normal; font-size:12px; font-style: italic;">We,</h6>
+                        <p><img src="card face.png" width="97%";></p>
+			<h6 style="text-align: center; font-family: Garamond, serif; color: #737373; font-weight:normal; padding:5px; font-size:12px; font-style: italic;">with full hearts, joyfully invite you to share our joy as we unite in marriage</h6></div><br><br>
+
+			<div class="nups" style="width:100%; background-color:#643f00; margin: 0;
+  padding-top: 10px; padding-bottom: 10px;">		<p><img src="flowers2.png" style="width: 50%; transform:rotate(180deg)"></p><br>
+			<p><img src="Date2.png" width="70%";></p><br>
+                        <p><a href="https://maps.app.goo.gl/sxFPXouoKX6Tcn4J7" class="wedding-button">View Map and Directions</a></p><br>
+			<p><img src="flowers2.png" style="width: 50%; "></p> </div>
+
+                        <br><br><h2 style="text-align: center; color: var(--accent); font-family: Garamond, serif; font-weight:bold; ">RECEPTION</h2>
+                        <p><img src="reception.png" style="width: 80%; padding-top:10px;"></p>
+                        <p><a href="https://maps.app.goo.gl/w5xf9HBfStfvVQBJ6" class="wedding-button">View Map and Directions to Venue</a></p>
+                        <p><img src="flowers.png" style="width: 50%;"></p><br><br>
+                        
+                    </div>
+                   
+                    <div class="rsvp-section">
+                        <h2 style="text-align: center; color: white; font-weight: normal;">See you there!</h2>
+                         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeHRSsmXvwDdFQqRgz-Df66g6Gm9XBZ9-TXUd8YMmH3Kw6vrQ/viewform?embedded=true" width="100%" height="1100px" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+                        <div id="done-msg" style="display:none; text-align: center; padding: 20px;">
+                            <p style="color: var(--accent);">Response Sent!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+function openInvite() {
+    const env = document.getElementById('envelope');
+    const audio = document.getElementById('inviteMusic');
+
+    if (!env.classList.contains('open')) {
+        env.classList.add('open');
+        
+        // 1. "Unlock" and play the audio
+        // We call .play() immediately inside the click/touchstart handler
+		audio.currentTime =48;
+        audio.play().catch(error => {
+            console.log("Mobile playback blocked. Trying alternate 'unlock'...");
+            
+            // 2. Fallback: Some mobile browsers need a second trigger
+            // This 'tells' the phone the user definitely wanted sound.
+            const forcePlay = () => {
+                audio.play();
+                document.removeEventListener('click', forcePlay);
+            };
+            document.addEventListener('click', forcePlay);
+        });
+
+        startPetals();
+    }
+}
+
+        function startPetals() {
+    // Define your wedding color palette here
+    const colors = ['#d8a691','#ffd699'
+        /*'#ffd699', // Pure White
+        '#cf3073', // Soft Rose
+        '#ff914d', // Ivory/Champagne
+        '#e8d3b9', // Muted Gold/Sand
+        '#e2a9f1'  // Pale Pink*/
+    ];
+
+    for (let i = 0; i < 60; i++) { // Increased count for colorful effect
+        setTimeout(() => {
+            const p = document.createElement('div');
+            p.className = 'petal';
+            
+            // Randomly pick a color from the array
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            p.style.backgroundColor = randomColor;
+            
+            // Randomize size
+            const size = (Math.random() * 10 + 10) + 'px';
+            p.style.width = size;
+            p.style.height = size;
+            
+            p.style.left = Math.random() * 100 + 'vw';
+            
+            // Randomize speed and rotation
+            const duration = (Math.random() * 3 + 4) + 's';
+            const delay = (Math.random() * 2) + 's';
+            p.style.animation = `fall ${duration} ${delay} linear forwards`;
+            
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 8000);
+        }, i * 120);
+    }
+}
+
+        document.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 1) e.preventDefault();
+        }, { passive: false });
+    </script>
+</body>
+</html>
